@@ -1,28 +1,38 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk,Image
-import sqlite3
 import re
 
+from database import incrementVisits, addCustomer
+
 root = Tk()
-root.title('Chocolate Cellar Customer Loyalty')
+root.title('Customer Loyalty')
 root.geometry("400x400")
 
 def submit():
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
-    name_rex = re.compile("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
-    phone_rex = re.compile(
-    if not name_rex.match(f_name.get()):
-        messagebox.showerror("showerror","Invalid first name")
+    phone_rex = "^\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$"
+    name_rex = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+    email_rex = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+    
+    if not re.match(name_rex, f_name.get()):
+        messagebox.showerror("showerror","Invalid first name!")
         return
-    if not name_rex.match(l_name.get()):
-        messagebox.showerror("showerror","Invalid last name")
+    if not re.match(name_rex, l_name.get()):
+        messagebox.showerror("showerror","Invalid last name!")
+        return
+    if re.match(phone_rex, phone_number.get()):
+        numbers = re.split(phone_rex, phone_number.get())
+        numbers.remove("")
+        phone_number_clean = "(" + numbers[0] + ")" + numbers[1] + "-" + numbers[2]
+    else:
+        messagebox.showerror("showerror","Invalid phone number!")
+        return
+    if not re.match(email_rex, email_address.get()):
+        messagebox.showerror("showerror","Invalid email address!")
         return
 
-    c.execute("INSERT INTO customers (first_name, last_name, email_address, phone_number) VALUES (?, ?, ?, ?)", (f_name.get(), l_name.get(), email_address.get(), phone_number.get()))
-    conn.commit()
-    conn.close()
+    addCustomer(f_name.get(), l_name.get(), phone_number_clean, email_address.get())
+
     f_name.delete(0, END)
     l_name.delete(0, END)
     phone_number.delete(0, END)
