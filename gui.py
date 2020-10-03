@@ -8,7 +8,7 @@ from databaseInterface import incrementVisits, addCustomer
 
 root = Tk()
 root.title('Customer Loyalty')
-root.geometry("400x400")
+root.geometry("700x400")
 
 def main():
     root.mainloop()
@@ -86,6 +86,11 @@ customer_number.grid(row=8, column=1)
 
 customer_number_label = Label(root, text="Phone Number:")
 customer_number_label.grid(row=8, column=0)
+
+customer_pay = Entry(root, width=15)
+customer_pay.grid(row=8, column=3)
+customer_pay_label = Label(root, text="Amount Spent:")
+customer_pay_label.grid(row=8, column=2)
 
 # Create submit button
 returning_submit_button = Button(root, text="Add Visit", command=returnSubmit)
