@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-from PIL import ImageTk,Image
 import re
 
 from database import incrementVisits, addCustomer
