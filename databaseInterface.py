@@ -21,6 +21,7 @@ def getCustomer(phone_number):
     result = cur.fetchone()
     connection.commit()
     connection.close()
+    print(result)
     if result:
         return result
     else:
