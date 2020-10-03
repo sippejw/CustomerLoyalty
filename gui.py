@@ -2,6 +2,7 @@ import re
 
 from tkinter import *
 from tkinter import messagebox
+import re
 
 from databaseInterface import incrementVisits, addCustomer
 
