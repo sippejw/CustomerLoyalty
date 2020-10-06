@@ -26,9 +26,7 @@ def newSubmit():
         return
     if re.match(phone_rex, phone_number.get()):
         numbers = re.split(phone_rex, phone_number.get())
-        numbers.remove("")
-        phone_number_clean = "(" + numbers[0] + ")" + numbers[1] + "-" + numbers[2]
-        print(phone_number_clean)
+        phone_number_clean = ''.join(numbers)
     else:
         messagebox.showerror("showerror","Invalid phone number!")
         return
@@ -47,14 +45,14 @@ def returnSubmit():
     phone_rex = "^\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$"
     if re.match(phone_rex, customer_number.get()):
         numbers = re.split(phone_rex, customer_number.get())
-        numbers.remove("")
-        number_clean = "(" + numbers[0] + ")" + numbers[1] + "-" + numbers[2]
+        number_clean = ''.join(numbers)
     else:
         messagebox.showerror("showerror", "Invalid phone number!")
         return
-    num_visits = incrementVisits(number_clean)
-    print(number_clean)
-    print(num_visits)
+    amount_spent = float(customer_pay.get())
+    num_increments = incrementVisits(number_clean, amount_spent)
+    if num_increments % 15 == 0:
+        messagebox.showinfo(title=None, message="This is the customers 15th $5 purchase!")
     return
     
 # Create text boxes

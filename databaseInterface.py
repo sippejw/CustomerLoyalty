@@ -21,25 +21,27 @@ def getCustomer(phone_number):
     result = cur.fetchone()
     connection.commit()
     connection.close()
-    print(result)
     if result:
         return result
     else:
         return 0
 
 # Increments the customers number of visits by one
-def incrementVisits(phone_number):
+def incrementVisits(phone_number, amount_spent):
     if not getCustomer(phone_number):
         return 0
     connection = sqlite3.connect('database.db')
     cur = connection.cursor()
     num_visits = getCustomer(phone_number)[5]
     num_visits += 1
-    query = "UPDATE customers SET num_visits = ? WHERE phone_number = ?"
-    cur.execute(query, (num_visits, phone_number))
+    num_increments = getCustomer(phone_number)[6]
+    num_increments += int(amount_spent / 5)
+    print(num_increments)
+    query = "UPDATE customers SET num_visits = ?, increments_five = ? WHERE phone_number = ?"
+    cur.execute(query, (num_visits, num_increments, phone_number))
     connection.commit()
     connection.close()
-    return num_visits
+    return num_increments
 
 # Returns all values in customer table
 def getAll():
