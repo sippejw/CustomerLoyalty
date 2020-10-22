@@ -50,8 +50,8 @@ def returnSubmit():
         messagebox.showerror("showerror", "Invalid phone number!")
         return
     amount_spent = float(customer_pay.get())
-    num_increments = incrementVisits(number_clean, amount_spent)
-    if num_increments % 15 == 0:
+    special_visit = incrementVisits(number_clean, amount_spent)
+    if special_visit:
         messagebox.showinfo(title=None, message="This is the customers 15th $5 purchase!")
     return
     
