@@ -38,8 +38,10 @@ def newSubmit():
 
     f_name.delete(0, END)
     l_name.delete(0, END)
+    customer_number.insert(0, phone_number.get())
     phone_number.delete(0, END)
     email_address.delete(0, END)
+    customer_pay.focus()
 
 def returnSubmit():
     phone_rex = "^\(?([0-9]{3})\)?[-.]?([0-9]{3})[-.]?([0-9]{4})$"
@@ -50,8 +52,12 @@ def returnSubmit():
         messagebox.showerror("showerror", "Invalid phone number!")
         return
     amount_spent = float(customer_pay.get())
-    num_increments = incrementVisits(number_clean, amount_spent)
-    if num_increments % 15 == 0:
+    special_visit = incrementVisits(number_clean, amount_spent)
+
+    customer_number.delete(0, END)
+    customer_pay.delete(0, END)
+
+    if special_visit:
         messagebox.showinfo(title=None, message="This is the customers 15th $5 purchase!")
     return
     
