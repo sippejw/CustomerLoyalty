@@ -33,8 +33,10 @@ def newSubmit():
     if not re.match(email_rex, email_address.get()):
         messagebox.showerror("showerror","Invalid email address!")
         return
-
-    addCustomer(f_name.get(), l_name.get(), phone_number_clean, email_address.get())
+    customer_exists = addCustomer(f_name.get(), l_name.get(), phone_number_clean, email_address.get())
+    if not customer_exists:
+        messagebox.showerror("showerror", "Phone number already exists!")
+        return
 
     f_name.delete(0, END)
     l_name.delete(0, END)

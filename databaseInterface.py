@@ -1,16 +1,16 @@
 import sqlite3
 
 # Adds customer to database
-def addCustomer(f_name, l_name, email_address, phone_number):
+def addCustomer(f_name, l_name, phone_number, email_address):
     if getCustomer(phone_number):
-        return 0
+        return False
     connection = sqlite3.connect('database.db')
     cur = connection.cursor()
     query = "INSERT INTO customers (first_name, last_name, email_address, phone_number) VALUES (?, ?, ?, ?)"
     cur.execute(query, (f_name, l_name, email_address, phone_number))
     connection.commit()
     connection.close()
-    return
+    return True
 
 # Returns customer with given phone_number
 def getCustomer(phone_number):
@@ -29,6 +29,7 @@ def getCustomer(phone_number):
 # Increments the customers number of visits by one
 def incrementVisits(phone_number, amount_spent):
     if not getCustomer(phone_number):
+        print("No customer found!")
         return 0
     connection = sqlite3.connect('database.db')
     cur = connection.cursor()
