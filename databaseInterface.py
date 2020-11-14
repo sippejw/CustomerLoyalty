@@ -39,7 +39,7 @@ def incrementVisits(phone_number, amount_spent):
     special_visit = False 
     for i in range(0, int(amount_spent / 5)):
         num_increments += 1
-        if num_increments % 15 == 0:
+        if num_increments % 20 == 0:
             special_visit = True 
     query = "UPDATE customers SET num_visits = ?, increments_five = ? WHERE phone_number = ?"
     cur.execute(query, (num_visits, num_increments, phone_number))

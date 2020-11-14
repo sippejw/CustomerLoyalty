@@ -60,7 +60,7 @@ def returnSubmit():
     customer_pay.delete(0, END)
 
     if special_visit:
-        messagebox.showinfo(title=None, message="This is the customers 15th $5 purchase!")
+        messagebox.showinfo(title=None, message="This is the customers 20th $5 purchase!")
     return
     
 # Create text boxes
